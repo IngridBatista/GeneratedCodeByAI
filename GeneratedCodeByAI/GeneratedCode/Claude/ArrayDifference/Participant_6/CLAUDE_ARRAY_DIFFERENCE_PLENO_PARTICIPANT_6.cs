@@ -1,0 +1,21 @@
+namespace CLAUDE.ARRAY_DIFFERENCE.PLENO.PARTICIPANT_6
+{
+    public class CLAUDE_ARRAY_DIFFERENCE_PLENO_PARTICIPANT_6
+    {
+        public static int[] ArrayDiff(int[] a, int[] b)
+        {
+            HashSet<int> setB = new HashSet<int>(b);
+            List<int> resultado = new List<int>();
+
+            foreach (int elemento in a)
+            {
+                if (!setB.Contains(elemento))
+                {
+                    resultado.Add(elemento);
+                }
+            }
+
+            return resultado.ToArray();
+        }
+    }
+}
