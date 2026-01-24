@@ -1,10 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5
 {
     // CompareSequence.cs
+
+    /// <summary>
+    /// Orquestra a leitura de sequências de números e frações,
+    /// e compara-as de acordo com regras específicas.
+    /// </summary>
     public class CompareSequence
     {
         /// <summary>
-        /// Executa o fluxo principal do programa: ler sequências, processar e imprimir resultados.
+        /// Executa o fluxo principal do programa.
         /// </summary>
         public void Run()
         {
@@ -13,19 +22,20 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5
                 var sequenceA = ReadDoubleSequence();
                 var sequenceB = ReadFractionSequence();
 
-                if (sequenceA.Count == 0 || sequenceB.Count == 0)
+                if (!ValidateSequences(sequenceA, sequenceB))
                 {
-                    Console.WriteLine("\nErro: Uma ou ambas as sequências estão vazias. O programa será encerrado.");
                     return;
                 }
 
-                var resultFractions = FindFractionsGreaterThanHalfOfSequenceA(sequenceA, sequenceB);
+                var resultFractions = FindMatchingFractions(sequenceA, sequenceB);
 
-                PrintResults(resultFractions);
+                PrintResult(resultFractions);
             }
             catch (Exception ex)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nOcorreu um erro inesperado: {ex.Message}");
+                Console.ResetColor();
             }
         }
 
@@ -35,26 +45,26 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5
         private List<double> ReadDoubleSequence()
         {
             Console.WriteLine("--- Sequência A (números decimais) ---");
-            Console.WriteLine("Digite números decimais. Digite '0' para finalizar.");
+            Console.WriteLine("Digite os números um por um. Digite '0' para finalizar.");
 
             var sequence = new List<double>();
             while (true)
             {
                 Console.Write("> ");
-                string input = Console.ReadLine() ?? "";
+                string? input = Console.ReadLine();
 
-                if (double.TryParse(input, out double number))
+                if (!double.TryParse(input, out double number))
                 {
-                    if (number == 0)
-                    {
-                        break;
-                    }
-                    sequence.Add(number);
+                    Console.WriteLine("Entrada inválida. Por favor, digite um número.");
+                    continue;
                 }
-                else
+
+                if (number == 0)
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, digite um número válido.");
+                    break;
                 }
+
+                sequence.Add(number);
             }
             return sequence;
         }
@@ -65,92 +75,92 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5
         private List<Fraction> ReadFractionSequence()
         {
             Console.WriteLine("\n--- Sequência B (frações no formato 'numerador/denominador') ---");
-            Console.WriteLine("Digite frações (ex: 3/4). Digite uma fração negativa para finalizar.");
+            Console.WriteLine("Digite as frações uma por uma. Uma fração negativa finaliza a leitura.");
 
             var sequence = new List<Fraction>();
             while (true)
             {
                 Console.Write("> ");
-                string input = Console.ReadLine() ?? "";
+                string? input = Console.ReadLine();
 
-                if (TryParseFraction(input, out Fraction fraction))
+                if (!Fraction.TryParse(input, out Fraction? fraction))
                 {
-                    if (fraction.ToDouble() < 0)
-                    {
-                        break; // Condição de parada
-                    }
-                    sequence.Add(fraction);
+                    Console.WriteLine("Formato de fração inválido. Use 'numerador/denominador'.");
+                    continue;
                 }
-                else
+
+                if (fraction!.ToDouble() < 0)
                 {
-                    Console.WriteLine("Formato de fração inválido. Use 'numerador/denominador' (ex: 5/2).");
+                    break;
                 }
+
+                sequence.Add(fraction);
             }
             return sequence;
         }
 
         /// <summary>
-        /// Tenta converter uma string no formato "n/d" para um objeto Fraction.
+        /// Valida se as sequências não estão vazias.
         /// </summary>
-        private bool TryParseFraction(string input, out Fraction fraction)
+        private bool ValidateSequences(List<double> sequenceA, List<Fraction> sequenceB)
         {
-            fraction = default;
-            var parts = input.Split('/');
-
-            if (parts.Length != 2) return false;
-
-            if (int.TryParse(parts[0], out int numerator) && int.TryParse(parts[1], out int denominator))
+            if (!sequenceA.Any())
             {
-                try
-                {
-                    fraction = new Fraction(numerator, denominator);
-                    return true;
-                }
-                catch (ArgumentException) // Captura o erro de denominador zero
-                {
-                    return false;
-                }
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\nErro: A sequência A está vazia. O programa será encerrado.");
+                Console.ResetColor();
+                return false;
             }
-            return false;
+
+            if (!sequenceB.Any())
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("\nErro: A sequência B está vazia. O programa será encerrado.");
+                Console.ResetColor();
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
-        /// Encontra todas as frações na sequência B que são maiores que pelo menos metade dos elementos da sequência A.
+        /// Encontra as frações na sequência B que são maiores que pelo menos metade dos elementos da sequência A.
         /// </summary>
-        private List<Fraction> FindFractionsGreaterThanHalfOfSequenceA(IReadOnlyList<double> sequenceA, IEnumerable<Fraction> sequenceB)
+        private List<Fraction> FindMatchingFractions(List<double> sequenceA, List<Fraction> sequenceB)
         {
-            var result = new List<Fraction>();
-            int threshold = sequenceA.Count / 2;
+            var halfCountOfA = sequenceA.Count / 2.0;
+            var matchingFractions = new List<Fraction>();
 
             foreach (var fraction in sequenceB)
             {
-                // Usando LINQ para uma contagem limpa e expressiva
                 int countGreater = sequenceA.Count(number => fraction.IsGreater(number));
 
-                if (countGreater > threshold)
+                if (countGreater >= halfCountOfA)
                 {
-                    result.Add(fraction);
+                    matchingFractions.Add(fraction);
                 }
             }
-            return result;
+
+            return matchingFractions;
         }
 
         /// <summary>
-        /// Imprime a lista de frações resultante no console.
+        /// Imprime o resultado final no console.
         /// </summary>
-        private void PrintResults(IReadOnlyList<Fraction> fractions)
+        private void PrintResult(List<Fraction> resultFractions)
         {
             Console.WriteLine("\n--- Resultado ---");
-            if (fractions.Count == 0)
+            Console.WriteLine("Frações da sequência B maiores que pelo menos metade dos números da sequência A:");
+
+            if (!resultFractions.Any())
             {
-                Console.WriteLine("Nenhuma fração da sequência B atendeu ao critério.");
+                Console.WriteLine("Nenhuma fração encontrada que satisfaça a condição.");
             }
             else
             {
-                Console.WriteLine("Frações da sequência B maiores que pelo menos metade dos números da sequência A:");
-                foreach (var fraction in fractions)
+                foreach (var fraction in resultFractions)
                 {
-                    Console.WriteLine(fraction.ToString());
+                    Console.WriteLine($"- {fraction}");
                 }
             }
         }

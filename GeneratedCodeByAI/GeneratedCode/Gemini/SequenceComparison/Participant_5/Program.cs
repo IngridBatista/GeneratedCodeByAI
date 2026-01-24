@@ -6,8 +6,8 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5
     {
         public static void Main(string[] args)
         {
-            var comparison = new CompareSequence();
-            comparison.Run();
+            var comparator = new CompareSequence();
+            comparator.Run();
         }
     }
 }
