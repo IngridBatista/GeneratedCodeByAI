@@ -1,0 +1,23 @@
+using System;
+using System.Linq;
+
+namespace DEEPSEEK.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_2
+{
+    public class Program
+    {
+        public static void Main()
+        {
+            int[] A = { 1, 2, 3, 4, 5, 6, 7 };
+            int[] B = { 2, 4, 6, 8, 10 };
+
+            // Solução usando LINQ
+            int[] resultado = A.Except(B).ToArray();
+
+            Console.WriteLine("Elementos em A que não estão em B (LINQ):");
+            foreach (int num in resultado)
+            {
+                Console.Write(num + " ");
+            }
+        }
+    }
+}
