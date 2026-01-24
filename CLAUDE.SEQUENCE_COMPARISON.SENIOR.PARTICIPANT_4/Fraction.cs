@@ -1,0 +1,182 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_4
+{
+    public class Fraction
+    {
+        public int Numerator { get; private set; }
+        public int Denominator { get; private set; }
+
+        public Fraction(int numerator, int denominator)
+        {
+            if (denominator == 0)
+            {
+                throw new ArgumentException("Denominator cannot be zero.");
+            }
+
+            Numerator = numerator;
+            Denominator = denominator;
+        }
+
+        public double GetValue()
+        {
+            return (double)Numerator / Denominator;
+        }
+
+        public bool IsLesser(double value)
+        {
+            return GetValue() < value;
+        }
+
+        public bool IsGreater(double value)
+        {
+            return GetValue() > value;
+        }
+
+        public bool IsNegative()
+        {
+            return GetValue() < 0;
+        }
+
+        public override string ToString()
+        {
+            return $"{Numerator}/{Denominator}";
+        }
+    }
+
+    public class CompareSequence
+    {
+        public void Execute()
+        {
+            // 1. Ler sequência A
+            List<double> sequenceA = ReadSequenceA();
+
+            // 2. Ler sequência B
+            List<Fraction> sequenceB = ReadSequenceB();
+
+            // 3. Validar se as sequências estão vazias
+            if (sequenceA.Count == 0 || sequenceB.Count == 0)
+            {
+                Console.WriteLine("Error: One or both sequences are empty.");
+                return;
+            }
+
+            // 4. Calcular metade do tamanho de A
+            int halfCount = sequenceA.Count / 2;
+
+            // 5. Filtrar e imprimir frações de B
+            PrintQualifiedFractions(sequenceA, sequenceB, halfCount);
+        }
+
+        private List<double> ReadSequenceA()
+        {
+            List<double> sequence = new List<double>();
+            Console.WriteLine("Enter values for sequence A (type 0 to stop):");
+
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (double.TryParse(input, out double value))
+                {
+                    if (value == 0)
+                    {
+                        break;
+                    }
+                    sequence.Add(value);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
+            }
+
+            return sequence;
+        }
+
+        private List<Fraction> ReadSequenceB()
+        {
+            List<Fraction> sequence = new List<Fraction>();
+            Console.WriteLine("Enter fractions for sequence B (format: numerator/denominator, negative fraction to stop):");
+
+            while (true)
+            {
+                string input = Console.ReadLine();
+
+                if (TryParseFraction(input, out Fraction fraction))
+                {
+                    if (fraction.IsNegative())
+                    {
+                        break;
+                    }
+                    sequence.Add(fraction);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid fraction (e.g., 3/4).");
+                }
+            }
+
+            return sequence;
+        }
+
+        private bool TryParseFraction(string input, out Fraction fraction)
+        {
+            fraction = null;
+
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return false;
+            }
+
+            string[] parts = input.Split('/');
+
+            if (parts.Length != 2)
+            {
+                return false;
+            }
+
+            if (int.TryParse(parts[0], out int numerator) &&
+                int.TryParse(parts[1], out int denominator))
+            {
+                try
+                {
+                    fraction = new Fraction(numerator, denominator);
+                    return true;
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        private void PrintQualifiedFractions(List<double> sequenceA, List<Fraction> sequenceB, int halfCount)
+        {
+            Console.WriteLine("\nFractions from sequence B that are greater than at least half of sequence A:");
+
+            foreach (Fraction fraction in sequenceB)
+            {
+                int countGreater = sequenceA.Count(value => fraction.IsGreater(value));
+
+                if (countGreater >= halfCount)
+                {
+                    Console.WriteLine($"{fraction} (value: {fraction.GetValue():F4})");
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CompareSequence compareSequence = new CompareSequence();
+            compareSequence.Execute();
+        }
+    }
+}
