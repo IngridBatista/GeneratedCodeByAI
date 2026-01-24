@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ComparadorSequencias
+namespace GTP.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_1
 {
     // Classe Fração
     public class Fracao

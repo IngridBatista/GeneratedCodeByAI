@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace SequenceComparison
+namespace GTP.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_4
 {
     /// <summary>
     /// Representa uma fração numerador/denominador.

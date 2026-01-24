@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace SequenceComparison
+namespace GTP.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_5
 {
     public sealed class Fraction : IComparable<Fraction>
     {

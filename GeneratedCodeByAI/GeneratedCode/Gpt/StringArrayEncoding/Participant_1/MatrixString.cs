@@ -1,4 +1,5 @@
 using System;
+
 namespace GTP.STRING_ARRAY_ENCODING.SENIOR.PARTICIPANT_1
 {
     public class MatrixString

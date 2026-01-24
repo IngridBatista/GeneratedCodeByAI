@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+
 namespace GTP.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_2
 {
     class Program

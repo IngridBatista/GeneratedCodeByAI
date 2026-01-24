@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CompareSequenceApp
+namespace CLAUDE.SEQUENCE_COMPARISON.PLENO.PARTICIPANT_6
 {
     // Classe para representar frações
     public class Fraction

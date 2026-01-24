@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SequenceComparison
+namespace CLAUDE.SEQUENCE_COMPARISON.JUNIOR.PARTICIPANT_7
 {
     /// <summary>
     /// Representa uma fração matemática com numerador e denominador

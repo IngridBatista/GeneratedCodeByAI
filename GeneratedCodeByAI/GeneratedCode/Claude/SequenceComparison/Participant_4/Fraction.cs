@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CompareSequenceProblem
+namespace CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_4
 {
     public class Fraction
     {

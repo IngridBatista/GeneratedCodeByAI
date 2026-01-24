@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace SequenceComparison
+namespace DEEPSEEK.SEQUENCE_COMPARISON.JUNIOR.PARTICIPANT_7
 {
     /// <summary>
     /// Classe que representa uma fração com numerador e denominador inteiros
