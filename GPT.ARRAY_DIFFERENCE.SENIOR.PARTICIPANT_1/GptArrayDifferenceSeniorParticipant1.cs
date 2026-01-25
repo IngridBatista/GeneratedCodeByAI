@@ -1,6 +1,6 @@
 namespace GPT.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_1
 {
-    public class GPT_ARRAY_DIFFERENCE_SENIOR_PARTICIPANT_1
+    public class GptArrayDifferenceSeniorParticipant1
     {
         public static int[] Diferenca(int[] primeiro, int[] segundo)
         {

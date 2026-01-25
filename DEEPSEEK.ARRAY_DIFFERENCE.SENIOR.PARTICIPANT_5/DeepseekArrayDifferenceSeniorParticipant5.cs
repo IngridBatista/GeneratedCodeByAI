@@ -1,6 +1,6 @@
 namespace DEEPSEEK.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_5
 {
-    public class DEEPSEEK_ARRAY_DIFFERENCE_SENIOR_PARTICIPANT_5
+    public class DeepseekArrayDifferenceSeniorParticipant5
     {
         public static int[] Difference(int[] firstArray, int[] secondArray)
         {

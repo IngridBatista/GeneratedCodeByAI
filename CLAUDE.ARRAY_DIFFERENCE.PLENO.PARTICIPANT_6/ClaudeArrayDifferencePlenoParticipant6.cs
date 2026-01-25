@@ -1,6 +1,6 @@
 namespace CLAUDE.ARRAY_DIFFERENCE.PLENO.PARTICIPANT_6
 {
-    public class CLAUDE_ARRAY_DIFFERENCE_PLENO_PARTICIPANT_6
+    public class ClaudeArrayDifferencePlenoParticipant6
     {
         public static int[] ArrayDiff(int[] a, int[] b)
         {

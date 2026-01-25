@@ -1,6 +1,6 @@
 namespace DEEPSEEK.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_3
 {
-    public class DEEPSEEK_SEQUENCE_COMPARISON_SENIOR_PARTICIPANT_3
+    public class DeepseekSequenceComparisonSeniorParticipant3
     {
         public void Run()
         {

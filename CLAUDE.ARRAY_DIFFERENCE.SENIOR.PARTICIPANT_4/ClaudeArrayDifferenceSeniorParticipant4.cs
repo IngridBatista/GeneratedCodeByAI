@@ -1,6 +1,6 @@
 namespace CLAUDE.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_4
 {
-    public class CLAUDE_ARRAY_DIFFERENCE_SENIOR_PARTICIPANT_4
+    public class ClaudeArrayDifferenceSeniorParticipant4
     {
         public static int[] Difference(int[] a, int[] b)
         {

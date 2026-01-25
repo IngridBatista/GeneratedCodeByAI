@@ -1,6 +1,6 @@
 namespace GPT.ARRAY_DIFFERENCE.PLENO.PARTICIPANT_6
 {
-    public class GPT_ARRAY_DIFFERENCE_PLENO_PARTICIPANT_6
+    public class GptArrayDifferencePlenoParticipant6
     {
         public static int[] Diferenca(int[] a, int[] b)
         {

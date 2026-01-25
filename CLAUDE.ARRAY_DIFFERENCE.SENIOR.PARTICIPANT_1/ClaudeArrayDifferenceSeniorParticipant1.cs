@@ -1,6 +1,6 @@
 namespace CLAUDE.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_1
 {
-    public class CLAUDE_ARRAY_DIFFERENCE_SENIOR_PARTICIPANT_1
+    public class ClaudeArrayDifferenceSeniorParticipant1
     {
         public static int[] ObterElementosExclusivos(int[] array1, int[] array2)
         {
