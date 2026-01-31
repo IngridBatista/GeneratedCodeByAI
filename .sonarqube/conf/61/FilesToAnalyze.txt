@@ -1,0 +1,2 @@
+﻿C:\Users\fingr\source\repos\GeneratedCodeByAI\GEMINI.STRING_ARRAY_ENCODING.SENIOR.PARTICIPANT_5\MatrixException.cs
+C:\Users\fingr\source\repos\GeneratedCodeByAI\GEMINI.STRING_ARRAY_ENCODING.SENIOR.PARTICIPANT_5\MatrixString.cs

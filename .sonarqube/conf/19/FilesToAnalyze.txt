@@ -1,0 +1,2 @@
+﻿C:\Users\fingr\source\repos\GeneratedCodeByAI\CLAUDE.STRING_ARRAY_ENCODING.SENIOR.PARTICIPANT_4\MatrixException.cs
+C:\Users\fingr\source\repos\GeneratedCodeByAI\CLAUDE.STRING_ARRAY_ENCODING.SENIOR.PARTICIPANT_4\MatrixString.cs
