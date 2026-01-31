@@ -2,85 +2,104 @@ using System;
 
 namespace GEMINI.SEQUENCE_COMPARISON.PLENO.PARTICIPANT_6
 {
-    /// <summary>
-    /// Representa um número racional (fração) com um numerador e um denominador.
-    /// </summary>
-    public class Fraction
-    {
-        /// <summary>
-        /// Obtém o numerador da fração.
-        /// </summary>
-        public long Numerator { get; private set; }
+    // Fraction.cs
 
-        /// <summary>
-        /// Obtém o denominador da fração.
-        /// </summary>
+    /// <summary>
+    /// Representa uma fração com um numerador e um denominador.
+    /// A fração é sempre armazenada em sua forma mais simples.
+    /// </summary>
+    public class Fraction : IComparable<Fraction>
+    {
+        public long Numerator { get; private set; }
         public long Denominator { get; private set; }
 
-        /// <summary>
-        /// Inicializa uma nova instância da classe Fraction.
-        /// </summary>
-        /// <param name="numerator">O numerador.</param>
-        /// <param name="denominator">O denominador (não pode ser zero).</param>
         public Fraction(long numerator, long denominator)
         {
             if (denominator == 0)
             {
-                throw new ArgumentException("O denominador não pode ser zero.");
+                throw new ArgumentException("O denominador não pode ser zero.", nameof(denominator));
             }
 
-            // Garante que o sinal da fração fique sempre no numerador
+            // Normaliza o sinal (o sinal fica sempre no numerador)
             if (denominator < 0)
             {
                 numerator = -numerator;
                 denominator = -denominator;
             }
 
-            Numerator = numerator;
-            Denominator = denominator;
+            // Simplifica a fração usando o Máximo Divisor Comum (MDC)
+            long commonDivisor = Gcd(Math.Abs(numerator), denominator);
+            Numerator = numerator / commonDivisor;
+            Denominator = denominator / commonDivisor;
+        }
+
+        /// <summary>
+        /// Calcula o Máximo Divisor Comum (MDC) usando o algoritmo de Euclides.
+        /// </summary>
+        private static long Gcd(long a, long b)
+        {
+            while (b != 0)
+            {
+                long temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
         }
 
         /// <summary>
         /// Converte a fração para seu valor de ponto flutuante (double).
         /// </summary>
-        /// <returns>O valor decimal da fração.</returns>
         public double ToDouble()
         {
             return (double)Numerator / Denominator;
         }
 
         /// <summary>
-        /// Verifica se o valor desta fração é maior que um determinado valor double.
+        /// Verifica se esta fração é menor que outra fração.
         /// </summary>
-        public bool IsGreater(double value)
+        public bool IsLesser(Fraction other)
         {
-            return this.ToDouble() > value;
+            // Compara usando multiplicação cruzada para evitar problemas de precisão com double
+            return this.Numerator * other.Denominator < other.Numerator * this.Denominator;
         }
 
         /// <summary>
-        /// Verifica se o valor desta fração é menor que um determinado valor double.
+        /// Verifica se esta fração é maior que outra fração.
         /// </summary>
-        public bool IsLesser(double value)
+        public bool IsGreater(Fraction other)
         {
-            return this.ToDouble() < value;
+            return this.Numerator * other.Denominator > other.Numerator * this.Denominator;
         }
 
         /// <summary>
-        /// Converte uma string no formato "numerador/denominador" para um objeto Fraction.
+        /// Compara esta fração com outra.
         /// </summary>
-        /// <param name="input">A string a ser convertida.</param>
-        /// <returns>Um objeto Fraction.</returns>
-        public static Fraction Parse(string input)
+        /// <returns>-1 se esta fração for menor, 1 se for maior, 0 se forem iguais.</returns>
+        public int CompareTo(Fraction other)
         {
-            if (string.IsNullOrWhiteSpace(input))
+            long crossProduct1 = this.Numerator * other.Denominator;
+            long crossProduct2 = other.Numerator * this.Denominator;
+
+            if (crossProduct1 < crossProduct2) return -1;
+            if (crossProduct1 > crossProduct2) return 1;
+            return 0;
+        }
+
+        /// <summary>
+        /// Cria uma instância de Fraction a partir de uma string no formato "numerador/denominador".
+        /// </summary>
+        public static Fraction Parse(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s))
             {
-                throw new FormatException("A entrada não pode ser nula ou vazia.");
+                throw new FormatException("A string de entrada não pode ser nula ou vazia.");
             }
 
-            string[] parts = input.Split('/');
+            string[] parts = s.Split('/');
             if (parts.Length != 2)
             {
-                throw new FormatException("Formato de fração inválido. Use 'numerador/denominador'.");
+                throw new FormatException("A fração deve estar no formato 'numerador/denominador'.");
             }
 
             if (!long.TryParse(parts[0].Trim(), out long numerator) || !long.TryParse(parts[1].Trim(), out long denominator))
@@ -91,9 +110,6 @@ namespace GEMINI.SEQUENCE_COMPARISON.PLENO.PARTICIPANT_6
             return new Fraction(numerator, denominator);
         }
 
-        /// <summary>
-        /// Retorna a representação em string da fração.
-        /// </summary>
         public override string ToString()
         {
             return $"{Numerator}/{Denominator}";

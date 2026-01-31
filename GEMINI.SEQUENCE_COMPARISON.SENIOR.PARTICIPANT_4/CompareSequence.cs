@@ -1,28 +1,49 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_4
 {
+    // CompareSequence.cs
+
+    /// <summary>
+    /// Orquestra a leitura de sequências, a comparação e a impressão dos resultados.
+    /// </summary>
     public class CompareSequence
     {
-        /// <summary>
-        /// Lê uma sequência de valores double da entrada padrão até que 0 seja inserido.
-        /// </summary>
-        /// <returns>Uma lista de doubles.</returns>
-        public List<double> ReadDoubleSequence()
-        {
-            var sequence = new List<double>();
-            Console.WriteLine("Insira a sequência A (valores double, digite 0 para terminar):");
+        private readonly List<double> _sequenceA = new();
+        private readonly List<Fraction> _sequenceB = new();
 
+        /// <summary>
+        /// Executa o fluxo completo do programa.
+        /// </summary>
+        public void Run()
+        {
+            ReadSequenceA();
+            ReadSequenceB();
+
+            if (_sequenceA.Count == 0)
+            {
+                Console.WriteLine("Erro: A sequência A não pode ser vazia.");
+                return;
+            }
+
+            if (_sequenceB.Count == 0)
+            {
+                Console.WriteLine("Erro: A sequência B não pode ser vazia.");
+                return;
+            }
+
+            ProcessAndPrintResults();
+        }
+
+        private void ReadSequenceA()
+        {
+            Console.WriteLine("Insira os valores da sequência A (tipo double). Digite 0 para terminar.");
             while (true)
             {
-                Console.Write("> ");
+                Console.Write("Valor: ");
                 string? input = Console.ReadLine();
 
                 if (!double.TryParse(input, out double value))
                 {
-                    Console.WriteLine("Entrada inválida. Por favor, insira um número double.");
+                    Console.WriteLine("Entrada inválida. Por favor, insira um número double válido.");
                     continue;
                 }
 
@@ -31,33 +52,27 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_4
                     break;
                 }
 
-                sequence.Add(value);
+                _sequenceA.Add(value);
             }
-            return sequence;
         }
 
-        /// <summary>
-        /// Lê uma sequência de frações da entrada padrão até que uma fração negativa seja inserida.
-        /// </summary>
-        /// <returns>Uma lista de Frações.</returns>
-        public List<Fraction> ReadFractionSequence()
+        private void ReadSequenceB()
         {
-            var sequence = new List<Fraction>();
-            Console.WriteLine("\nInsira a sequência B (frações no formato 'numerador/denominador', uma fração negativa para terminar):");
-
+            Console.WriteLine("\nInsira os valores da sequência B (frações no formato 'numerador/denominador').");
+            Console.WriteLine("Uma fração negativa (ex: -1/2) encerrará a leitura.");
             while (true)
             {
-                Console.Write("> ");
+                Console.Write("Fração: ");
                 string? input = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("Entrada vazia. Tente novamente.");
+                    Console.WriteLine("Entrada inválida.");
                     continue;
                 }
 
                 string[] parts = input.Split('/');
-                if (parts.Length != 2 || !long.TryParse(parts[0], out long num) || !long.TryParse(parts[1], out long den))
+                if (parts.Length != 2 || !long.TryParse(parts[0], out long numerator) || !long.TryParse(parts[1], out long denominator))
                 {
                     Console.WriteLine("Formato inválido. Use 'numerador/denominador'.");
                     continue;
@@ -65,44 +80,46 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_4
 
                 try
                 {
-                    var fraction = new Fraction(num, den);
+                    var fraction = new Fraction(numerator, denominator);
+
                     if (fraction.ToDouble() < 0)
                     {
-                        break;
+                        break; // Condição de parada
                     }
-                    sequence.Add(fraction);
+
+                    _sequenceB.Add(fraction);
                 }
-                catch (DivideByZeroException ex)
+                catch (ArgumentException ex)
                 {
                     Console.WriteLine($"Erro: {ex.Message}");
                 }
             }
-            return sequence;
         }
 
-        /// <summary>
-        /// Encontra todas as frações na sequência B que são maiores que pelo menos metade dos números na sequência A.
-        /// </summary>
-        /// <param name="sequenceA">A sequência de doubles.</param>
-        /// <param name="sequenceB">A sequência de frações.</param>
-        /// <returns>Uma lista de frações que satisfazem a condição.</returns>
-        public List<Fraction> FindMatchingFractions(List<double> sequenceA, List<Fraction> sequenceB)
+        private void ProcessAndPrintResults()
         {
-            var result = new List<Fraction>();
-            double halfCount = sequenceA.Count / 2.0;
+            Console.WriteLine("\n--- Resultados ---");
+            Console.WriteLine("Frações da sequência B maiores que pelo menos metade dos valores da sequência A:");
 
-            foreach (var fraction in sequenceB)
+            // O limiar é metade do número de elementos em A.
+            // Usamos A.Count / 2.0 para garantir a divisão de ponto flutuante.
+            double thresholdCount = _sequenceA.Count / 2.0;
+
+            var resultFractions = _sequenceB
+                .Where(fractionB => _sequenceA.Count(valueA => fractionB.IsGreater(valueA)) >= thresholdCount)
+                .ToList();
+
+            if (resultFractions.Any())
             {
-                // Usando LINQ para contar quantos elementos em A são menores que a fração atual.
-                // A sobrecarga do operador '<' na classe Fraction permite a comparação direta.
-                int countSmaller = sequenceA.Count(aValue => aValue < fraction);
-
-                if (countSmaller >= halfCount)
+                foreach (var fraction in resultFractions)
                 {
-                    result.Add(fraction);
+                    Console.WriteLine(fraction.ToString());
                 }
             }
-            return result;
+            else
+            {
+                Console.WriteLine("Nenhuma fração encontrada que satisfaça a condição.");
+            }
         }
     }
 }
