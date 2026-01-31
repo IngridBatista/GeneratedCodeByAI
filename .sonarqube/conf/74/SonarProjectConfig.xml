@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<SonarProjectConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/analyzer/2021/1">
-  <AnalysisConfigPath>C:\Users\fingr\source\repos\GeneratedCodeByAI\.sonarqube\conf\SonarQubeAnalysisConfig.xml</AnalysisConfigPath>
-  <ProjectPath>C:\Users\fingr\source\repos\GeneratedCodeByAI\GPT.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_3\GPT.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_3.csproj</ProjectPath>
-  <FilesToAnalyzePath>C:\Users\fingr\source\repos\GeneratedCodeByAI\.sonarqube\conf\74\FilesToAnalyze.txt</FilesToAnalyzePath>
-  <OutPath>C:\Users\fingr\source\repos\GeneratedCodeByAI\.sonarqube\out\74</OutPath>
-  <ProjectType>Product</ProjectType>
-  <TargetFramework>net10.0</TargetFramework>
-</SonarProjectConfig>

@@ -1,3 +1,0 @@
-﻿C:\Users\fingr\source\repos\GeneratedCodeByAI\GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_1\ComparadorDeSequencias.cs
-C:\Users\fingr\source\repos\GeneratedCodeByAI\GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_1\Fracao.cs
-C:\Users\fingr\source\repos\GeneratedCodeByAI\GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_1\Program.cs
