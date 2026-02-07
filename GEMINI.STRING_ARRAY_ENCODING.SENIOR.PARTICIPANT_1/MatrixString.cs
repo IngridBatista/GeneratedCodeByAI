@@ -1,8 +1,8 @@
 using System;
+using System.Text; // Precisamos disso para o StringBuilder
 
 namespace GEMINI.STRING_ARRAY_ENCODING.SENIOR.PARTICIPANT_1
 {
-    using System.Text; // Precisamos disso para o StringBuilder
 
     /// <summary>
     /// Representa e manipula uma matriz (array 2D) de strings de forma segura,
