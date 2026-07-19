@@ -93,7 +93,7 @@ namespace GEMINI.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_1.Tests
         {
             var comparador = ExecutarComCulturaEspecifica("0\n-1/1\n", CultureInfo.InvariantCulture);
             Assert.Empty(comparador.SequenciaA);
-        }8
+        }
 
         [Fact]
         [Trait("Escopo", "Obrigatorio")]
