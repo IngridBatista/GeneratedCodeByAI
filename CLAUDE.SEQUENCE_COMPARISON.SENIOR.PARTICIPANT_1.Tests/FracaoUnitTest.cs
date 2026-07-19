@@ -25,8 +25,7 @@ namespace CLAUDE.SEQUENCE_COMPARISON.SENIOR.PARTICIPANT_1.Tests
         [Trait("Escopo", "NaoConformidadeFuncionalGrave")]
         public void CompararSequencias_NaoImplementaFiltroDoEnunciado()
         {
-            Assert.True(
-                true,
+            Assert.Fail(
                 "CompararSequencias() calcula estatísticas (soma, média, máximo, " +
                 "mínimo) e faz comparação elemento-a-elemento, não o filtro de " +
                 "'fração > metade dos elementos de A' exigido pelo enunciado. " +

@@ -19,8 +19,7 @@
         [Trait("Escopo", "NaoConformidadeFuncionalGrave")]
         public void CompararSequencias_NaoImplementaFiltroDoEnunciado()
         {
-            Assert.True(
-                true,
+            Assert.Fail(
                 "CompararSequencias() implementa comparação de médias, não o filtro " +
                 "de 'fração > metade dos elementos de A' exigido pelo enunciado. " +
                 "Requisito 3 do enunciado: NÃO ATENDIDO. Casos de Tarefa2TestData " +
