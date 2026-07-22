@@ -1,0 +1,1 @@
+To run the tests, execute the command via the command line: dotnet test --filter "Escopo=Obrigatorio|Escopo=NaoConformidadeFuncionalGrave|Escopo=NaoConformidadeEstrutural" --logger "trx;LogFileName=resultados.trx"
