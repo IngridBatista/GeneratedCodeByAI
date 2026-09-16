@@ -1,6 +1,6 @@
 # GeneratedCodeByAI
 
-Repositório de dados brutos de um Trabalho de Conclusão de Curso (TCC) que avalia a qualidade do código C# gerado por diferentes LLMs. Ele armazena o **código-fonte gerado automaticamente** por quatro modelos de linguagem — **GPT**, **Claude**, **Gemini** e **DeepSeek** — a partir de prompts de programação submetidos por participantes reais, produzido pela API [AIConnection](https://github.com/IngridBatista/AIConnection).
+Repositório de dados brutos de um Trabalho de Conclusão de Curso (TCC) que avalia a qualidade do código C# gerado por diferentes LLMs. Ele armazena o **código-fonte gerado automaticamente** por quatro modelos de linguagem (**GPT**, **Claude**, **Gemini** e **DeepSeek**) a partir de prompts de programação submetidos por participantes reais, produzido pela API [AIConnection](https://github.com/IngridBatista/AIConnection).
 
 ## O que este repositório contém
 
@@ -22,7 +22,7 @@ Cada pasta de projeto segue o padrão:
 
 Exemplo: `CLAUDE.ARRAY_DIFFERENCE.SENIOR.PARTICIPANT_1` → solução gerada pelo Claude, para o exercício "ArrayDifference", a partir do prompt de um participante sênior (Participant 1).
 
-O namespace e o nome da classe dentro do `.cs` seguem a mesma convenção do diretório, garantindo rastreabilidade total entre pasta, projeto e código.
+O namespace, e o nome da classe dentro do `.cs` em situações em que o código gerado não criou o nome da classe, seguem a mesma convenção do diretório, garantindo rastreabilidade total entre pasta, projeto e código.
 
 ### Modelos
 
@@ -59,7 +59,6 @@ O código aqui armazenado é a matéria-prima da fase de avaliação do estudo, 
 
 - **CodeBLEU** — similaridade estrutural/sintática entre cada solução gerada e a solução de referência (especialista)
 - **SonarQube** — análise estática de qualidade e code smells
-- **Testes de comportamento (xUnit)** — verificação funcional das soluções
 
 ## Origem dos dados
 
